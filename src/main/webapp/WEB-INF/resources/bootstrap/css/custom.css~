@@ -1,0 +1,62 @@
+
+.logo{
+width:50px;
+position:absolute;
+margin-top:-5px;
+	
+}
+
+.left_nav{	
+width:20%;
+height:100%;
+}
+
+.left_nav ul{	
+padding:10px 10px 0px 10px;
+
+}
+
+
+
+.left_nav ul li a{	
+color:#000;
+border:solid 1px;
+border-color:#ccc;
+}
+
+.left_nav ul li a:hover{	
+background-color:#B5CCFF;
+}
+
+.content{	
+width:80%;
+padding:0% 2% 0% 2%;
+height:auto;
+}
+
+.icon_button{
+ border-radius: 25px;
+}
+
+.button{
+margin-right:50px;
+}
+
+.custom_container{
+margin-top:20px;	
+}
+
+.custom_col div{
+display:inline-block;
+	margin:0px 0px 0px 0px;
+}
+
+.panel-header{
+background-color:#84CCFF;	
+}
+
+
+
+
+
+
