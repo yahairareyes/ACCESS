@@ -562,8 +562,9 @@ public class InitiativeManager extends ResourceManager{
            Statement stm = _CONNECTION.createStatement();
            for(int i=0;i<activities.size();i++){
                System.out.println(activities.get(i).getId());
+               System.out.println(activities.get(i).getActive());
             if(activities.get(i).getActive() == true){
-           String query = "update activity set Initiative_Id=1 where Id="+activities.get(i).getId();
+           String query = "update activity set Initiative_Id="+initiativeId+" where Id="+activities.get(i).getId();
            stm.executeUpdate(query);
            }
            }

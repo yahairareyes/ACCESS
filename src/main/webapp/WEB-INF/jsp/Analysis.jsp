@@ -17,7 +17,7 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#">User</a></li>
-      <li><a href="https://sso.utep.edu">Log out</a></li>
+      <li><a href="/ACCESS/">Log out</a></li>
     </ul>
   </div>
 </nav>
@@ -25,9 +25,9 @@
 
 <div class="panel panel-default left_nav pull-left">
 <ul class="nav nav-pills nav-stacked text-center">
-  <li><a href="Resources.html">My Resources</a></li>
-  <li><a href="Directory.html">Directory</a></li>
-  <li class="active"><a href="Analysis.html">Analysis</a></li>
+    <li class="active"><a href="/ACCESS/resource/${user}/${level}">My Resources</a></li>
+  <li><a href="/ACCESS/initiative/directory/none/${user}/${level}">Directory</a></li>
+  <li><a href="/ACCESS/analysis/${user}/${level}">Analysis</a></li>
  
 </ul>
 </div>

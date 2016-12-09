@@ -23,8 +23,8 @@ import java.util.Map;
  */
 public class ResourceManager {
     
-    protected final String _ACCESS_DB = "localhost:3306/access";
-    //protected final String _ACCESS_DB = "//www.yahairareyes.com:3306/ACCESS_DB";
+    //protected final String _ACCESS_DB = "localhost:3306/access";
+    protected final String _ACCESS_DB = "www.yahairareyes.com:3306/ACCESS_DB";
     protected Properties _PROPERTIES = new Properties();
     protected Connection _CONNECTION;
     
