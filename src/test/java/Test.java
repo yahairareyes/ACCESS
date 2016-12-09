@@ -21,7 +21,7 @@ public class Test {
     
         Properties prop = new Properties();
         DatabaseConnection con = new DatabaseConnection();
-        Connection con1 = con.createConnection("www.yahairareyes.com:3306/ACCESS_DB","team6","F1n@l pr0j3ct");
+        Connection con1 = con.createConnection("localhost:3306/access","root","");
         
                  
           DatabaseMetaData md = con1.getMetaData();

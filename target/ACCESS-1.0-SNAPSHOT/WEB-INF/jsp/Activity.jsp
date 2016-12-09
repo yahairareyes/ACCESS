@@ -31,16 +31,16 @@
 
 <div class="panel panel-default left_nav pull-left">
 <ul class="nav nav-pills nav-stacked text-center">
-   <li class="active"><a href="Resources.html">My Resources</a></li>
-  <li><a href="Directory.html">Directory</a></li>
-  <li><a href="Analysis.html">Analysis</a></li>
+    <li class="active"><a href="/ACCESS/resource/${user}/${level}">My Resources</a></li>
+  <li><a href="/ACCESS/initiative/directory/none/${user}/${level}">Directory</a></li>
+  <li><a href="/ACCESS/analysis/${user}/${level}">Analysis</a></li>
  
 </ul>
 </div>
 
 <div class="container">
 <div class="pull-right panel panel-default content">
-    <form:form action="${url}" method="post" commandName="activity">
+    <form:form action="${action}" method="post" commandName="activity">
 <h3>
 Activity Detailed View
 </h3>
@@ -51,13 +51,13 @@ Activity Detailed View
   
       <div class="form-group form-inline">
       <label for="activity title">*Title</label>
-       <form:input path="title" class="form-control" id="activity_title" value="Title" style="width:95%;" />
+       <form:input path="title" class="form-control" id="activity_title" value="${activity.title}" style="width:95%;" />
       </div>
     
     <div class="form-group form-inline">
             <label for="start date">*Start Date</label>
          <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="width:21%;">
-                    <input type='text' class="form-control" value="Start Date"/>
+                    <form:input path="startdate" class="form-control" value="${activity.startdate}"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -65,26 +65,31 @@ Activity Detailed View
 
               <label for="start date">*End Date</label>
          <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="width:21%;">
-                    <input type='text' class="form-control" value="Start Date"/>
+                    <form:input path="enddate" class="form-control" value="${activity.enddate}"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
       </div>
           <label for="activity keywords">Keyword(s)</label>
-       <input type="text" class="form-control" id="initiative_keywords" value="Keyword(s)">
-      <button type="button" class="btn btn-default icon_button">
+             <form:input path="keyword" class="form-control" id="initiative_keywords"  list="keywords"/>
+      <datalist id="keywords">
+           <c:forEach var="keyword" items="${keywords}"> 
+           <option value="${keyword}">
+           </c:forEach>
+       </datalist>
+      <button type="submit" class="btn btn-default icon_button">
   <span class="glyphicon glyphicon-plus"></span>
 </button>
     </div>
           <div class="form-group form-inline">
       <label for="activity description">*Description</label>
-       <input type="text" class="form-control" id="activity_description" value="Description" style="width:95%;">
+       <form:input path="description" class="form-control" id="activity_description" value="${activity.description}" style="width:95%;" />
       <br/>
     <br/>
-    <form >
+   
     <label style="font-weight:bold;">Target Audience</label><br/>
     <label for="initiative document type">*Classification</label>
-    <input class="form-control" id="audience_classification" style="width:30%;" list="classifications" />
+    <form:input path="audience.clasification" class="form-control" id="audience_classification" style="width:30%;" list="classifications" />
         <datalist id="classifications">  
 	 <option>Freshman</option>
 	  <option>Sophomore</option>
@@ -94,11 +99,16 @@ Activity Detailed View
 		 <option>Ph.D.</option>
 		  <option>All</option>
         </datalist>
-    <input class="form-control" id="classification_description" value="Description" style="width:51%;" />
+     <form:input path="audience.description" class="form-control" id="initiative_keywords"  list="audience" style="width:51%;"/>
+      <datalist id="courses">
+           <c:forEach var="audi" items="${audience}"> 
+           <option value="${audi.value}">
+           </c:forEach>
+       </datalist>
     <button type="submit" class="btn btn-default icon_button">
     <span class="glyphicon glyphicon-plus"></span>
     </button>
-    </form>
+   
 
       </div>  
     </div>
@@ -110,15 +120,22 @@ Activity Detailed View
   
           <div class="form-group form-inline">
          <label for="activity semester">Semester</label>
-  <select class="form-control" id="initiative_document_type" style="width:30%;">
-    <option>Semester</option>   
-	<option>Spring</option>
-	<option>Fall</option>
-  </select>
+    <form:input path="course.semester" class="form-control" id="audience_classification" style="width:30%;" list="semester" />
+        <datalist id="semester">  
+	 <option>Spring</option>
+         <option>Fall</option>
+        </datalist>
 
-    <label for="activity course" style="font-weight:bold;">Course Name</label>
-       <input type="text" class="form-control" id="activity_course" value="Course name (Example)" style="width:44%;">
-<button type="button" class="btn btn-default icon_button">
+    <label for="activity course" style="font-weight:bold;">Course CRN</label>
+      <form:input path="course.crn" class="form-control" id="initiative_keywords"  value="" list="courses" style="width:44%;"/>
+      <datalist id="courses">
+           <c:forEach var="course" items="${courses}"> 
+           <option value="${course.value}">
+           </c:forEach>
+       </datalist>
+      
+       
+<button type="submit" class="btn btn-default icon_button">
   <span class="glyphicon glyphicon-plus"></span>
 </button>
       </div>   
@@ -135,7 +152,7 @@ Activity Detailed View
       <table id="activity_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-				 <th>ID</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -144,13 +161,45 @@ Activity Detailed View
         </thead>
 
         <tbody>
-        
+                 <c:forEach items="${participant}" var="participant_row">
+               <tr> 
+                    <td><a href="#">${participant_row.id}</a></td>
+                   <td><a href="#">${participant_row.name}</a></td>
+                   <td><a href="#">${participant_row.email}</a></td>
+                   <td><a href="#">${participant_row.role}</a></td>
+                   <td><a href="/ACCESS/activity/delete/${user}/${level}/${activityId}/${participant_row.id}">Delete</a></td>
+                </tr>
+                
+            </c:forEach>
         </tbody>
     </table>
+                      <table class="table table-striped table-bordered" id="membership_form" cellspacing="0" width="70%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+
+        <tbody>
+         
+               <tr> 
+                   <td><form:input path="participant.id"/></td>
+                   <td><form:input path ="participant.name" /></td>
+                   <td><form:input path="participant.email"/></td>
+                   <td><form:input path="participant.role" /></td>
+                </tr>
+ 
+        </tbody>
+      </table>
+              
       </div>
     
     <div class="form-inline pull-right custom_container">
-<input type="button" class="btn btn-default" value="Add Participant">
+<input type="submit" class="btn btn-default" value="Add Participant">
+<a href="/ACCESS/activity/view/${user}/${level}/${activityId}"><input type="button" style="display:none;" id="cancel_membership" class="btn btn-default" value="Cancel"></a>
 </div>
 </div>
 
@@ -158,10 +207,10 @@ Activity Detailed View
 
 <label for="required files">*Required Fields</label>
 <div class="navbar-right">
- <input type="button" class="btn btn-default" id = "save activity" value="Save">
-  <input type="button" class="btn btn-default" id = "save_return activity" value="Save & Return">
-   <input type="button" class="btn btn-default" id = "delete activity" value="Delete">
-    <input type="button" class="btn btn-default" id = "cancel activity" value="Cancel">
+ <input type="submit" class="btn btn-default" id = "save activity" value="Save">
+  <input type="submit" class="btn btn-default" id = "save_return activity" value="Save & Return">
+   <a href="${delete_activity}"><input type="button" class="btn btn-default" id = "delete initiative" value="Delete"></a>
+    <a href="${cancel}"><input type="button" class="btn btn-default" id = "cancel initiative" value="Cancel"></a>
   </div>
 </form:form>
 </div>

@@ -5,6 +5,8 @@
  */
 package com.hawkbyte.model;
 
+import java.util.List;
+
 /**
  *
  * @author Reknek
@@ -17,7 +19,29 @@ public class Directory extends User{
        private String startdate;
         private String enddate;
          private String keyword;
+         private String report_type;
+         private List<Initiative> initiatives;
 
+    public String getReport_type() {
+        return report_type;
+    }
+
+    public void setReport_type(String report_type) {
+        this.report_type = report_type;
+    }
+
+         
+         
+    public List<Initiative> getInitiatives() {
+        return initiatives;
+    }
+
+    public void setInitiatives(List<Initiative> initiatives) {
+        this.initiatives = initiatives;
+    }
+
+         
+         
     public String getCollege() {
         return college;
     }

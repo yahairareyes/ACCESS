@@ -17,7 +17,18 @@ public class Initiative extends Resource{
     private Document document;
     private Membership membership;
     private String activity;
+    private List<Activity>activities;
 
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+    
+    
+    
     public String getActivity() {
         return activity;
     }

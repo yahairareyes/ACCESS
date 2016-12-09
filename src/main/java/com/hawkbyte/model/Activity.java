@@ -18,6 +18,32 @@ public class Activity extends Resource{
     private Membership participant;
     private String initiative;
 
+    public Audience getAudience() {
+        return audience;
+    }
+
+    public void setAudience(Audience audience) {
+        this.audience = audience;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Membership getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(Membership participant) {
+        this.participant = participant;
+    }
+
+    
+    
     public String getInitiative() {
         return initiative;
     }

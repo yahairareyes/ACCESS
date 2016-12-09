@@ -19,10 +19,12 @@ import java.sql.Statement;
  */
 
 
+
 public class Authenticator {
     
-    private final String _ACCESS_DB = "www.yahairareyes.com:3306/ACCESS_DB";
-    private final Properties _PROPERTIES = new Properties();
+    private final String _ACCESS_DB = "localhost:3306/acces";
+   // private final String _ACCESS_DB = "www.yahairareyes.com:3306/ACCESS_DB";
+    private Properties _PROPERTIES = new Properties();
     private Connection _CONNECTION;
     
     public Authenticator() throws SQLException, ClassNotFoundException{

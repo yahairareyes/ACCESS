@@ -11,7 +11,7 @@ package com.hawkbyte.model;
  */
 import java.util.List;
 
-public class Resource extends User{
+public class Resource {
     
     private int id;
     private String title;
@@ -25,7 +25,7 @@ public class Resource extends User{
     private String owner;
     private boolean active;
 
-    public boolean isActive() {
+    public boolean getActive() {
         return active;
     }
 

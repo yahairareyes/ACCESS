@@ -21,7 +21,30 @@ public class Project extends Resource{
     private Membership membership;
     private String piname;
     private String Copi;
+    private boolean funded;
+    private List<Initiative> initiatives;
+
+    public List<Initiative> getInitiatives() {
+        return initiatives;
+    }
+
+    public void setInitiatives(List<Initiative> initiatives) {
+        this.initiatives = initiatives;
+    }
+
+    
+    
+    public boolean isFunded() {
+        return funded;
+    }
+
+    public void setFunded(boolean funded) {
+        this.funded = funded;
+    }
   
+    
+    
+    
     public String getGoal() {
         return goal;
     }

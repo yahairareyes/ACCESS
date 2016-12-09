@@ -34,9 +34,9 @@
 
 <div class="panel panel-default left_nav pull-left">
 <ul class="nav nav-pills nav-stacked text-center">
-    <li class="active"><a href="Resources.html">My Resources</a></li>
-  <li><a href="Directory.html">Directory</a></li>
-  <li><a href="Analysis.html">Analysis</a></li>
+    <li class="active"><a href="/ACCESS/resource/${user}/${level}">My Resources</a></li>
+  <li><a href="/ACCESS/initiative/directory/none/${user}/${level}">Directory</a></li>
+  <li><a href="/ACCESS/analysis/${user}/${level}">Analysis</a></li>
  
 </ul>
 </div>
@@ -57,7 +57,14 @@
 
         <tbody>
             <c:forEach items="${table.resource}" var="resource">
-                <td><a href="#"></a></td>
+               
+                <tr> 
+                   <td><a href="/ACCESS/resource/view/${user}/${level}/${resource.type}/${resource.id}">${resource.title}</a></td>
+                   <td><a href="/ACCESS/resource/view/${user}/${level}/${resource.type}/${resource.id}">${resource.type}</a></td>
+                   <td><a href="/ACCESS/resource/view/${user}/${level}/${resource.type}/${resource.id}">${resource.role}</a></td>
+                   <td><a href="/ACCESS/resource/view/${user}/${level}/${resource.type}/${resource.id}">${resource.creationdate}</a></td>
+                </tr>
+                
             </c:forEach>
         
         </tbody>
@@ -65,10 +72,10 @@
 
 </div>
 <div class="form-inline pull-right custom_container">
-<a href="Project.html"><input type="button" class="btn btn-default" value="Add Project"></a>
+<a href="/ACCESS/project/create/${user}/${level}"><input type="button" class="btn btn-default" value="Add Project"></a>
 
 
-<a href="Initiative.html"><input type="button" class="btn btn-default" value="Add Initiative"></a>
+<a href="/ACCESS/initiative/create/${user}/${level}"><input type="button" class="btn btn-default" value="Add Initiative"></a>
 </div>
 </div>
 </form>

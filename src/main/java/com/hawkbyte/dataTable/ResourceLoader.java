@@ -3,28 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hawkbyte.dataLoader;
+package com.hawkbyte.dataTable;
 
 import com.hawkbyte.managers.ActivityManager;
 import com.hawkbyte.managers.InitiativeManager;
 import com.hawkbyte.managers.ProjectManager;
 import com.hawkbyte.model.Activity;
 import com.hawkbyte.model.Initiative;
+import com.hawkbyte.model.Membership;
 import com.hawkbyte.model.Project;
 import com.hawkbyte.model.Resource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
- * @author Reknek
+ * @author raizo
  */
 public class ResourceLoader {
     
-    private final ProjectManager _PROJECT_MANAGER;
-    private final InitiativeManager _INITIATIVE_MANAGER;
-    private final ActivityManager _ACTIVITY_MANAGER;
+      private ProjectManager _PROJECT_MANAGER;
+    private InitiativeManager _INITIATIVE_MANAGER;
+    private ActivityManager _ACTIVITY_MANAGER;
     
     public ResourceLoader() throws SQLException, ClassNotFoundException{
     
@@ -57,8 +59,11 @@ public class ResourceLoader {
          resources.addAll(_INITIATIVE_MANAGER.getDepartmentInitiatives());
      }
      
+     resources.addAll(_PROJECT_MANAGER.getProjects(userId));
      resources.addAll(_INITIATIVE_MANAGER.getInitiatives(userId));
-      resources.addAll(_ACTIVITY_MANAGER.getActivities(userId));
+     resources.addAll(_ACTIVITY_MANAGER.getActivities(userId));
      return resources;
     }
+          
+    
 }
