@@ -38,6 +38,7 @@ public class ProjectManager extends ResourceManager{
         if(result.next()){
         Project project = new Project();
             project.setId(projectId);
+            project.setFunded(result.getBoolean("Funded"));
             project.setTitle(result.getString("Title"));
             project.setDescription(result.getString("Description"));
             project.setStartdate(result.getString("Start_Date"));
@@ -94,7 +95,7 @@ public class ProjectManager extends ResourceManager{
          List<Initiative> initiatives = new ArrayList<Initiative>();
         
         
-        if(initiative_result.next()){
+        if(initiative_result!=null){
         
         while(initiative_result.next()){
 
@@ -263,12 +264,14 @@ public class ProjectManager extends ResourceManager{
         }
          
         query = "Select Project_Id from pa where userId = "+userId;
+        stm = _CONNECTION.createStatement();
          ResultSet id_result = stm.executeQuery(query);
          if(id_result!=null){
          while(id_result.next()){
              query = "Select Id,Title,Creation_Date from project where Id = "+id_result.getInt("Project_Id");
+             stm = _CONNECTION.createStatement();
              ResultSet pa_result = stm.executeQuery(query);
-             if(pa_result != null){
+             if(pa_result.next()){
              
                   Project project = new Project();
                   project.setId(pa_result.getInt("Id"));

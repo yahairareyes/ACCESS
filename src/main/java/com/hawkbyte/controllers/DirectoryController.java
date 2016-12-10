@@ -75,22 +75,10 @@ public class DirectoryController {
     
 
      @RequestMapping(value="/initiative/directory/{report}/{user}/{level}",method=RequestMethod.GET)
-     ModelAndView defaultDirectory(HttpServletResponse response,@PathVariable("report")String report,@PathVariable("user")int user, @PathVariable("level")String level,@ModelAttribute("directory")Directory directory,ModelMap model) throws SQLException, Exception{
-         ModelAndView modelAndView = new ModelAndView();
-         if(!report.equals("none")){
-          
-            if(report.equals("summary")){
-                 modelAndView = new ModelAndView("excelView", "initiatives",directory.getInitiatives());
-                 
+     String defaultDirectory(HttpServletResponse response,@PathVariable("report")String report,@PathVariable("user")int user, @PathVariable("level")String level,@ModelAttribute("directory")Directory directory,ModelMap model) throws SQLException, Exception{
+         
+               // _SUMMARY_REPORT.summaryReport(directory.getInitiatives());
 
-            }else if(report.equals("detailed")){
-                 //file = _DETAILED_REPORT.detailedReport(directory.getInitiatives());
-            }
-       
-
-        }
-        
-        
           directory.setInitiatives(_INITIATIVE_MANAGER.getInitiatives(user));
           model.put("directory",directory);
            model.put("sumary_report","/ACCESS/initiative/directory/summary/"+user+"/"+level);
@@ -98,7 +86,7 @@ public class DirectoryController {
         
         
        
-        return modelAndView;
+        return "Directory";
     }
     
 

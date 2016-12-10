@@ -49,9 +49,14 @@ Welcome to Accelerating, Connecting, and Evaluating Student Success (ACCESS)
  <label for="search by college">Search by College</label>
  </div>
  <div class="col-sm-4">
-      <form:input path="college" class="form-control" id="initiative_category"  list="colleges" />
+     <c:if test="${level  == 'faculty' || level  == 'chair' }">
+      <form:input path="college" class="form-control" id="initiative_category" readonly="true" list="colleges" />
+      </c:if>
+          <c:if test="${level  == 'dean' ||level  == 'admin' }">
+      <form:input path="college" class="form-control" id="initiative_category" list="colleges" />
+      </c:if>
    <datalist id="colleges">
-    <option>College</option>   
+   
 	<option>College of Business</option>
 	<option>College of Education</option>
 	<option>College of Engineering</option>
@@ -68,7 +73,12 @@ Welcome to Accelerating, Connecting, and Evaluating Student Success (ACCESS)
  <label for="search by department">Search by Department</label>
  </div>
  <div class="col-sm-4">
-    <form:input path="department" class="form-control" id="initiative_category"  list="departments" />
+     <c:if test="${level  == 'faculty'}">
+    <form:input path="department" class="form-control" id="initiative_category"  readonly="true" list="departments" />
+       </c:if>
+        <c:if test="${level  == 'chair' || level  == 'dean' || level=='admin'}">
+    <form:input path="department" class="form-control" id="initiative_category"   list="departments" />
+       </c:if>
    <datalist id="departments">
      <option>Accounting and Information Systems</option>
 	 <option>Economics and Finance</option>
@@ -101,6 +111,7 @@ Welcome to Accelerating, Connecting, and Evaluating Student Success (ACCESS)
 			<option>Geological Sciences</option>
 			<option>Physics</option>
   </datalist>
+
  </div>
 </div>
 
@@ -111,7 +122,7 @@ Welcome to Accelerating, Connecting, and Evaluating Student Success (ACCESS)
  <div class="col-sm-4">
     <form:input path="category" class="form-control" id="initiative_category" list="categories" />
    <datalist id="categories">
-       <option>Category</option>  
+     
 		<option>Learning Communities</option>
 		<option>Development Workshops</option> 
 			<option>Mentoring</option>

@@ -54,7 +54,7 @@ Initiative Detailed View
       
       <form:input path="category" class="form-control" id="initiative_category" style="width:30%;" list="categories" />
    <datalist id="categories">
-       <option>Category</option>  
+      
 		<option>Learning Communities</option>
 		<option>Development Workshops</option> 
 			<option>Mentoring</option>

@@ -60,7 +60,10 @@ Project Detailed View
   
       <div class="form-group form-inline">
       <label for="project title">*Title</label>
-      <form:input path="title" class="form-control" id="title" value="${project.title}" />
+      <c:if test="${project.funded == false}">
+      <form:input path="title" class="form-control"  id="title" value="${project.title}" />
+      
+      
         <label for="start date">*Start Date</label>
          <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="width:25%;">
              <form:input path="startdate" type='text' class="form-control" value="${project.startdate}"/>
@@ -82,6 +85,35 @@ Project Detailed View
           <div class="form-group form-inline">
       <label for="project description">*Description</label>
       <form:input path="description" type="text" class="form-control" id="description" value="${description}" style="width:47%;" />
+      </c:if>
+      
+           <c:if test="${project.funded == true}">
+      <form:input path="title" class="form-control"  id="title" value="${project.title}" readonly="true"/>
+      
+      
+        <label for="start date">*Start Date</label>
+         <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="width:25%;">
+             <form:input path="startdate" type='text' class="form-control" value="${project.startdate}" readonly="true"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+      </div>
+
+              <label for="start date">*End Date</label>
+         <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="width:25%;">
+             <form:input path="enddate" type='text' class="form-control" value="${project.enddate}" readonly="true"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+      </div>
+
+      </div>
+    
+          <div class="form-group form-inline">
+      <label for="project description">*Description</label>
+      <form:input path="description" type="text" class="form-control" id="description" readonly="true" value="${description}" style="width:47%;" />
+      </c:if>
+      
       <label for="project keywords">Keyword(s)</label>
       <form:input path="keyword" class="form-control" list="keywords" />
        <datalist id="keywords">
@@ -97,6 +129,7 @@ Project Detailed View
       </div>
 
   <div class="form-group form-inline">
+           <c:if test="${project.funded == false}">
       <label for="project goal">Goal(s)</label>
       <form:input path="goal" type="text" class="form-control" id="goal" style="width:35%;" list="goals"/>
         <datalist id="goals">
@@ -111,11 +144,36 @@ Project Detailed View
      
       <label for="project objetive">Objetive(s)</label>
        <form:input path="objetive" class="form-control" id="objetive" style="width:35%;" list="objetives"/>
+      
         <datalist id="objetives">
            <c:forEach var="objetive" items="${objetives}"> 
            <option value="${objetive}">
            </c:forEach>
        </datalist>
+        </c:if>  
+      
+       <c:if test="${project.funded == true}">
+      <label for="project goal">Goal(s)</label>
+      <form:input path="goal" type="text" class="form-control" id="goal" readonly="true" style="width:35%;" list="goals"/>
+        <datalist id="goals">
+           <c:forEach var="goal" items="${goals}"> 
+           <option value="${goal}">
+           </c:forEach>
+       </datalist>
+<button type="submit" onClick="setSender('goal')" class="btn btn-default icon_button">
+
+  <span class="glyphicon glyphicon-plus"></span>
+</button>
+     
+      <label for="project objetive">Objetive(s)</label>
+       <form:input path="objetive" class="form-control" id="objetive" readonly="true" style="width:35%;" list="objetives"/>
+      
+        <datalist id="objetives">
+           <c:forEach var="objetive" items="${objetives}"> 
+           <option value="${objetive}">
+           </c:forEach>
+       </datalist>
+        </c:if>
 <button type="submit" onClick="setSender('objetive')" class="btn btn-default icon_button">
   <span class="glyphicon glyphicon-plus"></span>
 </button>
@@ -182,8 +240,8 @@ Project Detailed View
         <tbody>
           <c:forEach items="${funded_projects}" var="project">
                <tr> 
-                   <td><a href="/ACCESS/project/view/${user}/${level}/${projectId}">${project.title}</a></td>
-                   <td><a href="/ACCESS/project/view/${user}/${level}/${projectId}">${project.description}</a></td>
+                   <td><a href="/ACCESS/project/view/${user}/${level}/${project.id}">${project.title}</a></td>
+                   <td><a href="/ACCESS/project/view/${user}/${level}/${project.id}">${project.description}</a></td>
                 </tr>
                 
             </c:forEach>
@@ -360,7 +418,8 @@ Project Detailed View
 <div class="navbar-right">
  <input type="submit" onClick="setSender('project')" class="btn btn-default" id = "save project" value="Save" />
   <input type="submit" onClick="setSender('project')" class="btn btn-default" id = "save_return project" value="Save & Return">
-   <a href="${delete_project}"><input type="button" onClick= "setAction('delete')" class="btn btn-default" id = "delete project" value="Delete"></a>
+ 
+     <a href="${delete_project}"><input type="button" onClick= "setAction('delete')" class="btn btn-default" id = "delete project" value="Delete"></a>
     <a href="${cancel}"><input type="button" class="btn btn-default" id = "cancel project" value="Cancel"></a>
   </div>
 </form:form>

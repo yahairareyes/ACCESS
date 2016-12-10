@@ -80,7 +80,7 @@ public class InitiativeManager extends ResourceManager{
        }
        public List<Initiative> getInitiatives(int userId) throws SQLException{
     
-        String query = "Select Id,Title,Creation_Date from initiative where userId = "+userId;
+        String query = "Select * from initiative where userId = "+userId;
         Statement stm = _CONNECTION.createStatement();
         ResultSet owner_result = stm.executeQuery(query);
         List<Initiative> initiatives = new ArrayList<Initiative>();
@@ -90,27 +90,48 @@ public class InitiativeManager extends ResourceManager{
             initiative.setId(owner_result.getInt("Id"));
             initiative.setTitle(owner_result.getString("Title"));
             initiative.setCreationdate(owner_result.getString("Creation_Date"));
+             initiative.setDescription(owner_result.getString("Description"));
+              initiative.setCategory(owner_result.getString("Category"));
             initiative.setType("Initiative");
             initiative.setRole("owner");
+            
+             query = "Select firstname,lastname from users where Id="+userId;
+             stm = _CONNECTION.createStatement();
+              ResultSet user_result = stm.executeQuery(query);
+            if(user_result.next()){
+             initiative .setOwner(user_result.getString("firstname")+" "+user_result.getString("lastname"));
+            }
             initiatives.add(initiative);
          }
         }
         
         query = "Select Initiative_Id from ia where userId = "+userId;
+        stm = _CONNECTION.createStatement();
          ResultSet id_result = stm.executeQuery(query);
          if(id_result!=null){
          while(id_result.next()){
-             query = "Select Id,Title,Creation_Date from initiative where Id = "+id_result.getInt("Initiative_Id");
+             query = "Select * from initiative where Id = "+id_result.getInt("Initiative_Id");
+             stm = _CONNECTION.createStatement();
              ResultSet ia_result = stm.executeQuery(query);
-             if(ia_result != null){
+             if(ia_result.next()){
              
                   Initiative initiative = new Initiative();
                   initiative.setId(ia_result.getInt("Id"));
                   initiative.setTitle(ia_result.getString("Title"));
-                   initiative.setCreationdate(ia_result.getString("Creation Date"));
+                   initiative.setCreationdate(ia_result.getString("Creation_Date"));
+                    initiative.setDescription(ia_result.getString("Description"));
+                    initiative.setCategory(ia_result.getString("Category"));
                     initiative.setType("Initiative");
                    initiative.setRole("IA");
+                    query = "Select firstname,lastname from users where Id="+userId;
+                    stm = _CONNECTION.createStatement();
+              ResultSet user_result = stm.executeQuery(query);
+            if(user_result.next()){
+             initiative .setOwner(user_result.getString("firstname")+" "+user_result.getString("lastname"));
+            }
+             
                    initiatives.add(initiative);
+                  
              }
              
             }
@@ -290,9 +311,9 @@ public class InitiativeManager extends ResourceManager{
           DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
          String format_date = date.format(format);
               
-          String query = "Insert into initiative (Title,Description,Start_Date,End_Date,Project_Id,Creation_Date,userId) values ('"
+          String query = "Insert into initiative (Title,Description,Start_Date,End_Date,Project_Id,Creation_Date,userId,Category) values ('"
                           +initiative.getTitle()+"','"+initiative.getDescription()+"','"+initiative.getStartdate()+
-                           "','"+initiative.getEnddate()+"',-1,'"+format_date+"',"+userId+")";
+                           "','"+initiative.getEnddate()+"',-1,'"+format_date+"',"+userId+",'"+initiative.getCategory()+"')";
             
           Statement stm = _CONNECTION.createStatement();
           stm.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
@@ -308,7 +329,7 @@ public class InitiativeManager extends ResourceManager{
      
             public boolean updateInitiative(int initiativeId,Initiative initiative) throws SQLException{
           String query = "update initiative set Title='"+initiative.getTitle()+"',Description='"+initiative.getDescription()+
-                  "',Start_Date='"+initiative.getStartdate()+"',End_Date='"+initiative.getEnddate()+"' where Id="+initiativeId;
+                  "',Start_Date='"+initiative.getStartdate()+"',End_Date='"+initiative.getEnddate()+"',Category='"+initiative.getCategory()+"' where Id="+initiativeId;
             
           Statement stm = _CONNECTION.createStatement();
           if(stm.executeUpdate(query) > 0){
@@ -416,7 +437,9 @@ public class InitiativeManager extends ResourceManager{
           if(id_result != null){
         while(id_result.next()){
             String activity_query = "Select Id,Initiative_Id,Title,Description,Creation_Date from activity where Initiative_Id="+id_result.getInt("Initiative_Id");
-             ResultSet activity_result = stm.executeQuery(activity_query);
+            stm = _CONNECTION.createStatement();
+            ResultSet activity_result = stm.executeQuery(activity_query);
+            if(activity_result.next()){
               Activity activity = new Activity();
             activity.setId(activity_result.getInt("Id"));
             activity.setTitle(activity_result.getString("Title"));
@@ -435,6 +458,8 @@ public class InitiativeManager extends ResourceManager{
            if(user_result.next()){
              activity.setOwner(user_result.getString("firstname")+" "+user_result.getString("lastname"));     
            }
+           activities.add(activity);
+        }
              
         }
     }
@@ -453,13 +478,15 @@ public class InitiativeManager extends ResourceManager{
         if(id_result != null){
         while(id_result.next()){
             String initiative_query = "Select Id from initiative where Project_Id="+id_result.getInt("Project_Id");
+             stm = _CONNECTION.createStatement();
              ResultSet initiative_result = stm.executeQuery(initiative_query);
              
-              if(initiative_result != null){
+              if(initiative_result !=null){
              while(initiative_result.next()){
                  
              String activity_query = "Select Id,Initiative_Id,Title,Description,Creation_Date from activity where Initiative_Id="+initiative_result.getInt("Id")
                                         +" and not Initiative_Id="+initiativeId; 
+              stm = _CONNECTION.createStatement();
              ResultSet activity_result = stm.executeQuery(activity_query);
              while(activity_result.next()){
              Activity activity = new Activity();

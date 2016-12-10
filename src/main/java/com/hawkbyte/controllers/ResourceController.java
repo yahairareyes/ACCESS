@@ -8,7 +8,6 @@ package com.hawkbyte.controllers;
 import com.hawkbyte.model.Resource;
 import com.hawkbyte.dataTable.ResourceLoader;
 import com.hawkbyte.dataTable.Data;
-import com.hawkbyte.dataTable.Driver;
 import com.hawkbyte.model.Project;
 import com.hawkbyte.model.User;
 import java.sql.SQLException;
@@ -21,10 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- *
- * @author Reknek
- */
+
 
 @Controller
 public class ResourceController {
@@ -43,22 +39,6 @@ public class ResourceController {
         return "Resources";
     }
 
-    @RequestMapping(value="/resource", method=RequestMethod.GET)
-    public String defaultResource(ModelMap model) throws SQLException, ClassNotFoundException{
-    
-        ResourceLoader loader = new ResourceLoader();
-        //List<Resource> resources = loader.loadResources(user,level);
-        Driver driver = new Driver();
-        
-        Data table = new Data();
-        //table.setResource(resources);
-        
-        table.setResource(driver.getResources());
-        model.put("table",table);
-       
-        
-        return "Resources";
-    }
     
 @RequestMapping(value="/resource/view/{user}/{level}/{resourceType}/{resourceId}", method=RequestMethod.GET)
  public String viewResource(@PathVariable("user")int user,@PathVariable("level")String level,@PathVariable("resourceType")String resourceType,@PathVariable("resourceId")int resourceId,ModelMap model) throws SQLException, ClassNotFoundException{

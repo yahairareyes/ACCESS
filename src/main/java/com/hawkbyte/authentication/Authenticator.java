@@ -48,7 +48,7 @@ public class Authenticator {
             User user = new User();
             user.setUserId(result.getInt("Id"));
             if(result.getBoolean("Administrator")){
-                user.setAccess_level("administrator");
+                user.setAccess_level("admin");
                 return user;
             }
         

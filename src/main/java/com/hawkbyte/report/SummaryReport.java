@@ -52,7 +52,10 @@ public class SummaryReport extends AbstractExcelView{
                  
             }
             
-           
+            FileOutputStream out = new FileOutputStream( 
+      new File("SummaryReport.xlsx"));
+      workbook.write(out);
+      out.close();
         
           
 

@@ -39,25 +39,25 @@ public class ResourceLoader {
     
         List<Resource> resources = new ArrayList<Resource>();
         
-     resources.addAll(_PROJECT_MANAGER.getProjects(userId));
+    
      
-     if(access_level.equals("administrator")){
-         resources.addAll(_PROJECT_MANAGER.getDepartmentProjects());
-        resources.addAll(_PROJECT_MANAGER.getCollegeProjects());
-        resources.addAll(_PROJECT_MANAGER.getUniversityProjects());
-        resources.addAll(_INITIATIVE_MANAGER.getDepartmentInitiatives());
-        resources.addAll(_INITIATIVE_MANAGER.getCollegeInitiatives());
-        resources.addAll(_INITIATIVE_MANAGER.getUniversityInitiatives());
-     }else if(access_level.equals("chair")){
-         resources.addAll(_PROJECT_MANAGER.getDepartmentProjects());
-        resources.addAll(_PROJECT_MANAGER.getCollegeProjects());
-         resources.addAll(_INITIATIVE_MANAGER.getDepartmentInitiatives());
-        resources.addAll(_INITIATIVE_MANAGER.getCollegeInitiatives());
+    // if(access_level.equals("administrator")){
+        // resources.addAll(_PROJECT_MANAGER.getDepartmentProjects());
+        //resources.addAll(_PROJECT_MANAGER.getCollegeProjects());
+        //resources.addAll(_PROJECT_MANAGER.getUniversityProjects());
+        //resources.addAll(_INITIATIVE_MANAGER.getDepartmentInitiatives());
+        //resources.addAll(_INITIATIVE_MANAGER.getCollegeInitiatives());
+        //resources.addAll(_INITIATIVE_MANAGER.getUniversityInitiatives());
+    // }else if(access_level.equals("dean")){
+         //resources.addAll(_PROJECT_MANAGER.getDepartmentProjects());
+        //resources.addAll(_PROJECT_MANAGER.getCollegeProjects());
+         //resources.addAll(_INITIATIVE_MANAGER.getDepartmentInitiatives());
+        //resources.addAll(_INITIATIVE_MANAGER.getCollegeInitiatives());
          
-     }else if(access_level.equals("dean")){
-         resources.addAll(_PROJECT_MANAGER.getDepartmentProjects());
-         resources.addAll(_INITIATIVE_MANAGER.getDepartmentInitiatives());
-     }
+     ///}else if(access_level.equals("chair")){
+        // resources.addAll(_PROJECT_MANAGER.getDepartmentProjects());
+         //resources.addAll(_INITIATIVE_MANAGER.getDepartmentInitiatives());
+     //}
      
      resources.addAll(_PROJECT_MANAGER.getProjects(userId));
      resources.addAll(_INITIATIVE_MANAGER.getInitiatives(userId));

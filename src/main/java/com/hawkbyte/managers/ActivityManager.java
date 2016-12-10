@@ -170,12 +170,13 @@ public class ActivityManager extends ResourceManager{
                 
          while(id_result.next()){
              query = "Select Id,Title,Creation_Date from activity where Id = "+id_result.getInt("Activity_Id");
+             stm = _CONNECTION.createStatement();
              ResultSet ia_result = stm.executeQuery(query);
-             if(ia_result != null){
+             if(ia_result.next()){
              Activity activity = new Activity();
              activity.setId(ia_result.getInt("Id"));
              activity.setTitle(ia_result.getString("Title"));
-             activity.setCreationdate(ia_result.getString("Creation Date"));
+             activity.setCreationdate(ia_result.getString("Creation_Date"));
              activity.setType("Activity");
              activity.setRole("AE");
              activities.add(activity);
